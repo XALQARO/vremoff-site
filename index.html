@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>ВРЕМЕННО ОТСУТСТВУЕТ | Мультиссылка</title>
     <link href='https://fonts.googleapis.com/css2?family=Rubik&display=swap' rel='stylesheet'>
     <style>
@@ -14,6 +14,7 @@
         }
 
         body {
+            overflow-x: hidden;
             background: url('background.jpg') repeat;
             background-size: cover;
             color: black;
@@ -29,7 +30,8 @@
         /* Контейнер для аватара + анимации */
         .avatar-container {
             position: relative;
-            width: 700px;    /* ширина аватара */
+            width: 100%;   /* ширина аватара */
+            max-width: 700px;
             height: 393px;   /* высота аватара */
             margin-top: 40px;
         }
@@ -132,8 +134,8 @@
         .social-buttons-container a {
             position: relative;
             display: block;
-            width: 250%;
-            max-width: 300px;
+            width: 90%;
+            max-width: 700px;
             background: rgba(255, 255, 255, 0.15); /* полупрозрачный фон */
             color: black;
             padding: 12px 20px;
@@ -418,6 +420,20 @@
         }
                 /* Мобильные устройства */
         @media (max-width: 480px) {
+            .avatar-container {
+                width: 90%;
+                height: auto;
+            }
+            .services-list li {
+                font-size: 1.1em;
+                padding: 10px;
+            }
+            .card-number h2, .card-number .card-value {
+                font-size: 1em;
+            }
+            .button-big {
+                font-size: 1.5em;
+            }
             .services-list {
                 max-width: 90%;
             }
