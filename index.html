@@ -253,7 +253,6 @@
                  2px 0px 0 #fff,
                  0px -2px 0 #fff,
                  0px  2px 0 #fff;
-            position: relative;
         }
         .card-number .card-value {
             font-size: 1.3em;
@@ -269,30 +268,23 @@
                  2px 0px 0 #fff,
                  0px -2px 0 #fff,
                  0px  2px 0 #fff;
-            position: relative;
         }
 
-        /* Верхняя линия */
-        .card-number::before {
-            content: '';
-            display: block;
-            width: 300px;                 /* длина линии */
-            height: 2px;                   /* толщина в центре */
-            margin: 0 auto 10px auto;      /* отступ снизу линии до текста */
-            background: linear-gradient(to right, transparent, #fff, transparent); /* сужение к краям */
-            border-radius: 2px;
-        }
-
-        /* Нижняя линия */
+        .card-number::before,
         .card-number::after {
             content: '';
             display: block;
             width: 300px;
             height: 2px;
-            margin: 10px auto 0 auto;      /* отступ сверху линии от текста */
+            margin: 10px auto;
             background: linear-gradient(to right, transparent, #fff, transparent);
             border-radius: 2px;
         }
+        .services {
+            margin-top: 30px;
+            width: 100%;
+        }
+
         .services h2 {
             position: relative;
             display: inline-block;
@@ -304,31 +296,36 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;   /* обводка 1px */
+                 1px  1px 0 #fff;
         }
 
-        /* Glow под заголовком */
         .services h2::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120%;               /* чуть больше текста */
+            width: 120%;
             height: 120%;
-            background: rgba(255, 255, 255, 0.2); /* полупрозрачный белый */
-            filter: blur(10px);         /* мягкое свечение */
-            z-index: -1;                /* за текстом */
+            background: rgba(255, 255, 255, 0.2);
+            filter: blur(10px);
+            z-index: -1;
             border-radius: 6px;
         }
 
-        /* Список услуг */
+        .services-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
         .services-list li {
             position: relative;
-            background: none;          /* убираем фон */
-            max-width: 600px;
+            background: none;
             padding: 15px;
-            margin: 10px 0;
+            margin: 10px auto;
             font-size: 1.35em;
             font-weight: normal;
             color: black;
@@ -336,20 +333,19 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;       /* обводка 1px */
+                 1px  1px 0 #fff;
         }
 
-        /* Glow под каждым блоком списка */
         .services-list li::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 110%;                /* чуть больше самого блока */
+            width: 110%;
             height: 110%;
-            background: rgba(255, 255, 255, 0.15); /* полупрозрачный glow */
-            filter: blur(8px);          /* мягкое свечение */
+            background: rgba(255, 255, 255, 0.15);
+            filter: blur(8px);
             z-index: -1;
             border-radius: 8px;
         }
@@ -419,6 +415,22 @@
         /* при наведении glow проявляется */
         .image-button:hover .button-glow {
             opacity: 1;
+        }
+                /* Мобильные устройства */
+        @media (max-width: 480px) {
+            .services-list {
+                max-width: 90%;
+            }
+            .services-list li {
+                font-size: 1.1em;
+                padding: 12px;
+            }
+            .card-number h2 {
+                font-size: 1em;
+            }
+            .card-number .card-value {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
