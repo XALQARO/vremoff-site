@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>ВРЕМЕННО ОТСУТСТВУЕТ | Мультиссылка</title>
@@ -30,35 +26,33 @@
             padding: 20px;
             text-align: center;
         }
-
         /* Контейнер для аватара + анимации */
         .avatar-container {
             position: relative;
-            width: 700px;    
-            height: 393px;  
+            width: 700px;    /* ширина аватара */
+            height: 393px;   /* высота аватара */
             margin-top: 40px;
         }
 
         img.avatar {
             position: relative;
-            top: 50px;
+          	top: 50px;
             left: 0;
             width: 80%;
             height: 80%;
-            z-index: 1;
+            z-index: 1; /* аватар выше видео */
         }
 
         /* Видео с прозрачностью */
         video.animation {
             position: absolute;
-            top: 200px;       
-            left: 140px;      
-            width:60%;  
+            top: 200px;       /* сдвиг по вертикали */
+            left: 140px;      /* сдвиг по горизонтали */
+            width:60%;  /* растягиваем по размеру контейнера */
             height: 60%;
-            z-index: 2;   
-            pointer-events: none; 
+            z-index: 2;   /* под аватаром, чтобы аватар был сверху */
+            pointer-events: none; /* чтобы клики проходили сквозь видео */
         }
-
         h1 {
             margin: 20px 0 10px;
             background: white;
@@ -66,48 +60,53 @@
             border-radius: 12px;
             border: 2px solid #505050;
         }
-
         .description-container {
             position: relative;
             width: 80%;
             max-width: 450px;
-            margin: 10px auto;   
-            text-align: center;   
+            margin: 10px auto;   /* центрирование и отступы сверху/снизу */
+            text-align: center;   /* для центрирования линии */
         }
 
+
+
+        /* Нижняя линия */
         .description-container::after {
             content: '';
             display: block;
             width: 100%;
             max-width: 600px;
             height: 2px;
-            margin-top: -10px auto;          
+            margin-top: -10px auto;           /* отступ от картинки */
             background: linear-gradient(to right, transparent, #fff, transparent);
             border-radius: 2px;
         }
 
+        /* Сама картинка */
         .description-img {
             display: block;
             width: 100%;
             height: auto;
         }
-
         .social-header {
             position: relative;
             display: inline-block;
             font-size: 2em;
             font-weight: bold;
             color: black;
+
+            /* Обводка текста белым 1px */
             text-shadow:
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff;
+
             margin-bottom: 20px;
             padding: 10px 20px;
             border-radius: 8px;
         }
-
+        /* Glow-фон под заголовком */
         .social-header::after {
             content: '';
             position: absolute;
@@ -116,70 +115,79 @@
             transform: translate(-50%, -50%);
             width: 120%;
             height: 120%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2); /* мягкий полупрозрачный glow */
             filter: blur(10px);
             z-index: -1;
             border-radius: 8px;
         }
-
+        /* Контейнер кнопок соцсетей */
         .social-buttons-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px; 
+            gap: 10px; /* расстояние между кнопками */
         }       
 
+        /* Кнопки соцсетей */
         .social-buttons-container a {
             position: relative;
             display: block;
             width: 250%;
             max-width: 300px;
-            background: rgba(255, 255, 255, 0.15); 
+            background: rgba(255, 255, 255, 0.15); /* полупрозрачный фон */
             color: black;
             padding: 12px 20px;
             text-decoration: none;
-            border-radius: 8px;   
+            border-radius: 8px;   /* без обводки */
             font-size: 1.35em;
             font-weight: bold;
             text-align: center;
+
+            /* Обводка текста белым 1px */
             text-shadow:
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff;
+
             transition: transform 0.2s ease, background 0.3s ease;
             cursor: pointer;
         }
 
+        /* Hover-эффект */
         .social-buttons-container a:hover {
-            transform: scale(1.05);                  
-            background: rgba(255, 255, 255, 0.3);    
+            transform: scale(1.05);                  /* лёгкое увеличение */
+            background: rgba(255, 255, 255, 0.3);    /* чуть ярче на hover */
         }
 
+
+        /* Блок Топ-3 Донатеров */
         .top-donaters {
             position: relative;
             padding: 20px;
             margin: 40px auto;
             text-align: center;
             border-radius: 12px;
-            background: none;               
+            background: none;               /* убираем обычный фон */
             z-index: 0;
         }
 
+        /* Glow-фон под блоком */
         .top-donaters::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 105%;                    
+            width: 105%;                    /* чуть больше блока */
             height: 120%;
-            background: rgba(255, 255, 255, 0.15);  
-            filter: blur(12px);             
-            z-index: -1;                     
+            background: rgba(255, 255, 255, 0.15);  /* мягкий белый glow */
+            filter: blur(12px);             /* размытие для свечения */
+            z-index: -1;                     /* под контентом */
             border-radius: 12px;
         }
 
+        /* Заголовок блока */
         .top-donaters h2 {
             position: relative;
             font-size: 1.8em;
@@ -189,10 +197,11 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff; 
+                 1px  1px 0 #fff;          /* обводка 1px */
             margin-bottom: 15px;
         }
 
+        /* Список кнопок */
         .donaters-list {
             display: flex;
             flex-wrap: wrap;
@@ -200,11 +209,12 @@
             gap: 10px;
         }
 
+        /* Кнопки донатеров */
         .donater-button {
-            position: relative;             
+            position: relative;             /* важно для hover */
             display: inline-block;
             padding: 10px 30px;
-            background: rgba(255, 217, 0, 0.959); 
+            background: rgba(255, 217, 0, 0.959); /* желтоватый полупрозрачный */
             color: black;
             text-decoration: none;
             border-radius: 5px;
@@ -212,15 +222,15 @@
             font-size: 1.35em;
             font-weight: bold;
             transition: background 0.3s ease, transform 0.2s ease;
-            backdrop-filter: blur(2px);    
-            cursor: pointer;                
-            z-index: 0;                     
+            backdrop-filter: blur(2px);    /* мягкое размытие */
+            cursor: pointer;                /* чтобы явно показывалось, что это кнопка */
+            z-index: 0;                     /* чтобы hover работал поверх glow */
         }
 
         .donater-button:hover {
-            background: rgb(255, 174, 0); 
-            transform: scale(1.05);             
-            z-index: 1;                          
+            background: rgb(255, 174, 0); /* чуть ярче при наведении */
+            transform: scale(1.05);             /* лёгкое увеличение */
+            z-index: 1;                          /* на передний план при hover */
         }
 
         .card-number {
@@ -229,9 +239,8 @@
             text-align: center;
             margin: 40px auto;
         }
-
         .card-number h2 {
-            font-size: 2em;
+            font-size: 1.2em;
             font-weight: bold;
             color: black;
             letter-spacing: 3px;
@@ -246,9 +255,8 @@
                  0px  2px 0 #fff;
             position: relative;
         }
-
         .card-number .card-value {
-            font-size: 3em;
+            font-size: 1.3em;
             font-weight: bold;
             color: black;
             letter-spacing: 3px;
@@ -264,22 +272,30 @@
             position: relative;
         }
 
-        .card-number::before,
-        .card-number::after {
+        /* Верхняя линия */
+        .card-number::before {
             content: '';
             display: block;
-            width: 500px;
-            height: 2px;
-            margin: 10px auto;
-            background: linear-gradient(to right, transparent, #fff, transparent);
+            width: 300px;                 /* длина линии */
+            height: 2px;                   /* толщина в центре */
+            margin: 0 auto 10px auto;      /* отступ снизу линии до текста */
+            background: linear-gradient(to right, transparent, #fff, transparent); /* сужение к краям */
             border-radius: 2px;
         }
 
-        /* Блок услуг */
+        /* Нижняя линия */
+        .card-number::after {
+            content: '';
+            display: block;
+            width: 300px;
+            height: 2px;
+            margin: 10px auto 0 auto;      /* отступ сверху линии от текста */
+            background: linear-gradient(to right, transparent, #fff, transparent);
+            border-radius: 2px;
+        }
         .services h2 {
             position: relative;
             display: inline-block;
-            margin: 0 auto;
             padding: 10px 15px;
             font-size: 1.8em;
             font-weight: bold;
@@ -288,30 +304,31 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;  
+                 1px  1px 0 #fff;   /* обводка 1px */
         }
 
+        /* Glow под заголовком */
         .services h2::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120%;               
+            width: 120%;               /* чуть больше текста */
             height: 120%;
-            background: rgba(255, 255, 255, 0.2); 
-            filter: blur(10px);         
-            z-index: -1;                
+            background: rgba(255, 255, 255, 0.2); /* полупрозрачный белый */
+            filter: blur(10px);         /* мягкое свечение */
+            z-index: -1;                /* за текстом */
             border-radius: 6px;
         }
 
+        /* Список услуг */
         .services-list li {
             position: relative;
-            background: none;
+            background: none;          /* убираем фон */
             max-width: 60%;
             padding: 15px;
             margin: 10px 0;
-            margin-left: 140px;
             font-size: 1.35em;
             font-weight: normal;
             color: black;
@@ -319,132 +336,107 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;
+                 1px  1px 0 #fff;       /* обводка 1px */
         }
 
+        /* Glow под каждым блоком списка */
         .services-list li::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 110%;                
+            width: 110%;                /* чуть больше самого блока */
             height: 110%;
-            background: rgba(255, 255, 255, 0.15); 
-            filter: blur(8px);          
+            background: rgba(255, 255, 255, 0.15); /* полупрозрачный glow */
+            filter: blur(8px);          /* мягкое свечение */
             z-index: -1;
             border-radius: 8px;
         }
 
+        /* Большая кнопка */
         .button-big {
             position: relative;
             display: block;
             width: 90%;
             max-width: 390px;
-            background: rgba(255, 255, 255, 0.15); 
+            background: rgba(255, 255, 255, 0.15); /* полупрозрачный фон */
             color: black;
             padding: 16px 26px;
             margin: 12px auto;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 10px; /* без обводки */
             font-size: 2em;
             font-weight: bold;
             text-align: center;
+
+            /* Белая обводка текста 1px */
             text-shadow:
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff;
+
             transition: transform 0.2s ease, background 0.3s ease;
             cursor: pointer;
         }
 
+        /* Hover эффект */
         .button-big:hover {
-            transform: scale(1.05);                  
-            background: rgba(255, 255, 255, 0.3);    
+            transform: scale(1.05);                  /* лёгкое увеличение */
+            background: rgba(255, 255, 255, 0.3);    /* чуть ярче на hover */
         }
 
         .image-button {
             position: relative;
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 20px; /* смещает весь блок вниз */
+
         }
 
+        /* верхняя картинка (сама кнопка) */
         .button-main {
             display: block;
-            width: 400px; 
+            width: 400px; /* подгони размер */
             height: auto;
             position: relative;
-            z-index: 2;
+            z-index: 2; /* выше glow */
         }
 
+        /* нижняя картинка (подсветка) */
         .button-glow {
             position: absolute;
             top: 0;
             left: 0;
-            width: 400px; 
+            width: 400px; /* тот же размер, что и у кнопки */
             height: auto;
-            z-index: 1; 
-            opacity: 0; 
+            z-index: 1; /* под кнопкой */
+            opacity: 0; /* изначально невидим */
             transition: opacity 0.3s ease;
-            pointer-events: none; 
+            pointer-events: none; /* чтобы glow не мешал клику */
         }
 
+        /* при наведении glow проявляется */
         .image-button:hover .button-glow {
             opacity: 1;
         }
-
-        /* Мобильные адаптации */
-        @media (max-width: 600px) {
-            .services-list li {
-                max-width: 100%;
-                margin-left: 0;
-                padding: 10px;
-                font-size: 1em;
-            }
-
-            .card-number h2 {
-                font-size: 1.5em;
-            }
-
-            .card-number .card-value {
-                font-size: 1.8em;
-                letter-spacing: 2px;
-            }
-
-            .avatar-container {
-                width: 100%;
-                height: auto;
-            }
-
-            .avatar-container img.avatar,
-            .avatar-container video.animation {
-                width: 90%;
-                height: auto;
-                top: 0;
-                left: 0;
-            }
-
-            .social-buttons-container a,
-            .donater-button,
-            .button-big {
-                width: 90%;
-                max-width: none;
-                font-size: 1em;
-            }
-        }
-
     </style>
 </head>
 <body>
 
+    <!-- Контейнер аватара с видео -->
     <div class="avatar-container">
+        <!-- Здесь вставляем аватар -->
         <img src="avatar.png" alt="Аватар" class="avatar">
+
+        <!-- Видео-анимация с прозрачным фоном -->
+        <!-- ВАЖНО: заменить "Nickname.webm" на имя твоего файла -->
         <video class="animation" autoplay loop muted playsinline>
             <source src="Nickname.webm" type="video/webm">
             Ваш браузер не поддерживает видео с прозрачностью.
         </video>
     </div>
+    <!--p class="description">Привет дружище, добро пожаловать - это моя визитка. Здесь Ты найдешь все нужные ссылки на мои Соцсети и Донат. Подписывайся и не теряйся, залетай на стримы.</p -->
 
     <div class="description-container">
         <img src="DISC.png" alt="Описание" class="description-img">
@@ -455,30 +447,39 @@
         <img src="Roz glow.png" alt="Glow" class="button-glow">
     </a>
 
-    <section class="services" style="margin-top: 30px;">
-        <h2>🎬 Услуги на стриме</h2>
-        <ul class="services-list">
-            <li>🎞 <strong>150 грн — Один дополнительный фильм</strong><br/>
-                Твой фильм будет добавлен <u>третим</u> к уже подготовленной мной двойке фильмов.
-            </li>
-            <li>🎬 <strong>300 грн — 3 фильма от подписчика</strong><br/>
-                Ты скидываешь 300 грн — и выбираешь 3 фильма для следующего стрима.
-            </li>
-            <li>🌙 <strong>450 грн — Киноночь от подписчика</strong><br/>
-                Ты выбираешь до 5 фильмов, полноценная ночная сессия по твоим вкусам.
-            </li>
-        </ul>
-    </section>
+
+
+<section class="services" style="margin-top: 30px;">
+    <h2>🎬 Услуги на стриме</h2>
+    <ul class="services-list">
+        <li>🎞 <strong>150 грн — Один дополнительный фильм</strong><br/>
+            Твой фильм будет добавлен <u>третим</u> к уже подготовленной мной двойке фильмов.
+        </li>
+        <li>🎬 <strong>300 грн — 3 фильма от подписчика</strong><br/>
+            Ты скидываешь 300 грн — и выбираешь 3 фильма для следующего стрима.
+        </li>
+        <li>🌙 <strong>450 грн — Киноночь от подписчика</strong><br/>
+            Ты выбираешь до 5 фильмов, полноценная ночная сессия по твоим вкусам.
+        </li>
+    </ul>
+</section>
+
+
+    
 
     <div class="card-number">
         <h2>💳 Номер карты</h2>
         <p class="card-value">4441 1111 5761 9499</p>
     </div>
 
-    <a href="https://vremennootsytstvyet.donatik.ua" class="image-button" style="margin-bottom: 30px; margin-top: -10px;">
+
+        <a href="https://vremennootsytstvyet.donatik.ua" class="image-button" style="margin-bottom: 30px; margin-top: -10px;">
         <img src="Donat.png" alt="Button" class="button-main">
         <img src="Donat-glow.png" alt="Glow" class="button-glow">
     </a>
+
+
+
 
     <section class="top-donaters" style="margin-top: 30px;">
         <h2>🔥Топ-3 Донатеров🔥</h2>
@@ -489,6 +490,7 @@
         </div>
     </section>
 
+
     <div class="social-header" style="margin-top: 30px;">Соцсети</div>
 
     <div class="social-buttons-container" style="margin-top: 10px;">
@@ -498,8 +500,12 @@
         <a href="https://www.twitch.tv/vremennootsytstvyet" target="_blank">🎮 TWITCH</a>
         <a href="https://kick.com/vremenno-otsytstvyet" target="_blank">KICK</a>
     </div>
-
     <a href="https://magic-jumpsuit-8db.notion.site/6c1eed1bcf664532a7fb7c446a0a5342?v=026bb9d0a5fc463fa959c922345d0842" class="button-big" style="margin-top: 30px;">📅 График фильмов</a>
+
+
+
+
+
 
 </body>
 </html>
