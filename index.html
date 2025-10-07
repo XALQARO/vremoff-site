@@ -421,6 +421,64 @@
         .image-button:hover .button-glow {
             opacity: 1;
         }
+        
+
+
+
+
+        .image-button-roz {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px; /* смещает весь блок вниз */
+            transition: transform 0.3s ease; /* добавляем плавное увеличение всей кнопки */
+        }
+
+        /* при наведении — увеличиваем всю кнопку */
+        .image-button-roz:hover {
+            transform: scale(1.05); /* слегка увеличиваем */
+        }
+
+        /* верхняя картинка (сама кнопка) */
+        .button-main-roz {
+            display: block;
+            width: 300px; /* подгони размер */
+            height: auto;
+            position: relative;
+            z-index: 2; /* выше glow */
+        }
+
+        /* нижняя картинка (подсветка) */
+        .button-glow-roz {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px; /* тот же размер, что и у кнопки */
+            height: auto;
+            z-index: 1; /* под кнопкой */
+            opacity: 0; /* изначально невидим */
+            transition: opacity 0.3s ease; /* плавное появление glow */
+            pointer-events: none; /* чтобы glow не мешал клику */
+        }
+
+        /* при наведении glow проявляется */
+        .image-button-roz:hover .button-glow-roz {
+            opacity: 1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /* --- Мобильные устройства --- */
@@ -496,9 +554,9 @@
     </ul>
 </section>
 
-    <a href="rozygrysh.html" class="image-button" style="margin-top: 30px;">
-        <img src="Roz.png" alt="Button" class="button-main">
-        <img src="Roz glow.png" alt="Glow" class="button-glow">
+    <a href="rozygrysh.html" class="image-button-roz" style="margin-top: 30px;">
+        <img src="Roz.png" alt="Button" class="button-main-roz">
+        <img src="Roz glow.png" alt="Glow" class="button-glow-roz">
     </a>
 
     <div class="accordion" aria-label="Меню секций">
