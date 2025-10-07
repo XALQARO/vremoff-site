@@ -126,7 +126,9 @@
             margin: 40px auto;
             text-align: center;
             border-radius: 12px;
-            background: none;
+            background: none; /* фон теперь через ::after */
+            max-width: 760px; /* ограничиваем ширину контента */
+            width: 100%;      /* чтобы центрировалось */
             z-index: 0;
         }
 
@@ -136,7 +138,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 105%;
+            width: 100%;             /* теперь ограничен шириной родителя */
+            max-width: 760px;        /* ограничение пикселей */
             height: 120%;
             background: rgba(255, 255, 255, 0.15);
             filter: blur(12px);
@@ -366,22 +369,31 @@
         }
 
         .accordion-content {
-            width: 90%;
-            max-width: 760px;
-            overflow: hidden;
             max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease, opacity 0.5s ease;
+            width: 100vw;  
             opacity: 0;
-            transition: max-height 0.5s cubic-bezier(.2,.9,.3,1), opacity 1.5s ease, padding 1.5s ease;
-            background: rgba(255,255,255,0.08);
-            border-radius: 10px;
-            padding: 0 18px;
-            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.05) 10%,
+                rgba(0, 0, 0, 0.05) 90%,
+                rgba(0, 0, 0, 0) 100%
+                ); /* создаёт иллюзию «ухода в бесконечность» */
+            border: none;
+            box-shadow: none;
         }
 
+
         .accordion-content.show {
-            max-height: 1200px;
+            max-height: 2000px;
             opacity: 1;
-            padding: 16px 18px 20px 18px;
+        }
+        .accordion-content > * {
+            overflow: visible;      /* дочерние элементы не обрезаются */
         }
         .image-button {
             position: relative;
@@ -422,10 +434,6 @@
             opacity: 1;
         }
         
-
-
-
-
         .image-button-roz {
             position: relative;
             display: inline-block;
@@ -465,24 +473,14 @@
             opacity: 1;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /* --- Мобильные устройства --- */
         @media (max-width: 480px) {
+            .top-donaters {
+                width: 90%;          /* чтобы блок не уходил в край экрана */
+                margin: 20px auto;   /* центрируем горизонтально */
+                padding: 10px;       /* можно подкорректировать padding */
+                box-sizing: border-box; /* чтобы padding не ломал ширину */
+            }
             .services-list {
                 max-width: 90%;
             }
@@ -503,6 +501,7 @@
             .avatar-container{top:-5px;width:100%;height:auto}
             img.avatar{width:100%;height:auto}
             video.animation{left:10%;top:135px;width:80%;height:auto}
+            .accordion {gap: 6px;}
             .accordion-btn { font-size: 1.1em; padding: 12px 14px; }
             .accordion-content { padding: 12px 14px 16px 14px; }
             .image-button {
@@ -563,7 +562,6 @@
 
         <button class="accordion-btn" aria-expanded="false" aria-controls="services-panel">🎬 Услуги на стриме</button>
         <div id="services-panel" class="accordion-content" role="region" aria-hidden="true">
-            <h2 style="display:inline-block;padding:10px 15px;font-size:1.8em;font-weight:bold;color:black;text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;">🎬 Услуги на стриме</h2>
             <ul class="services-list" style="margin-top:12px;text-align:left;">
                 <li>🎞 <strong>150 грн — Один дополнительный фильм</strong><br/>
                     Твой фильм будет добавлен <u>третим</u> к уже подготовленной мной двойке фильмов.
@@ -601,7 +599,6 @@
 
         <button class="accordion-btn" aria-expanded="false" aria-controls="socials-panel">📱 Соцсети</button>
         <div id="socials-panel" class="accordion-content" role="region" aria-hidden="true">
-            <div class="social-header" style="margin-top:0;display:block;">Соцсети</div>
             <div class="social-buttons-container" style="margin-top:10px;">
                 <a href="https://t.me/vremenno_otsyststvyet" target="_blank">📢 Телеграм</a>
                 <a href="https://www.tiktok.com/@.vremenno.otsytstvyet" target="_blank">🎵 TikTok</a>
