@@ -447,6 +447,30 @@
             video.animation{left:10%;top:135px;width:80%;height:auto}
             .accordion-btn { font-size: 1.1em; padding: 12px 14px; }
             .accordion-content { padding: 12px 14px 16px 14px; }
+            .image-button {
+                display: flex;
+                justify-content: center;   /* центрируем всё по горизонтали */
+                align-items: center;       /* и по вертикали */
+                width: 100%;               /* растягиваем под ширину экрана */
+                margin: 20px auto;         /* выравниваем и создаём отступы */
+                position: relative;        /* сохраняем контекст для glow */
+            }
+
+            .image-button img {
+                max-width: 80%;            /* масштаб под экран */
+                height: auto;
+            }
+
+            .button-main,
+            .button-glow {
+                width: 80%;                /* одинаковый масштаб обеих картинок */
+                left: 50%;                 /* выравнивание по центру */
+                transform: translateX(-50%); /* чтобы не было смещения влево */
+            }
+
+            .button-glow {
+                top: 0;                    /* строго под основной кнопкой */
+            }
         }
     </style>
 </head>
