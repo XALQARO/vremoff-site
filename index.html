@@ -27,32 +27,30 @@
             padding: 20px;
             text-align: center;
         }
-        /* Контейнер для аватара + анимации */
         .avatar-container {
             position: relative;
             width: 700px;
-            height: 393px;   /* высота аватара */
+            height: 393px;
             margin-top: 40px;
         }
 
         img.avatar {
             position: relative;
-          	top: 50px;
+            top: 50px;
             left: 0;
             width: 80%;
             height: 80%;
-            z-index: 1; /* аватар выше видео */
+            z-index: 1;
         }
 
-        /* Видео с прозрачностью */
         video.animation {
             position: absolute;
-            top: 200px;       /* сдвиг по вертикали */
-            left: 140px;      /* сдвиг по горизонтали */
-            width:60%;  /* растягиваем по размеру контейнера */
+            top: 200px;
+            left: 140px;
+            width: 60%;
             height: 60%;
-            z-index: 2;   /* под аватаром, чтобы аватар был сверху */
-            pointer-events: none; /* чтобы клики проходили сквозь видео */
+            z-index: 2;
+            pointer-events: none;
         }
         h1 {
             margin: 20px 0 10px;
@@ -67,19 +65,15 @@
             font-size: 2em;
             font-weight: bold;
             color: black;
-
-            /* Обводка текста белым 1px */
             text-shadow:
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff;
-
             margin-bottom: 20px;
             padding: 10px 20px;
             border-radius: 8px;
         }
-        /* Glow-фон под заголовком */
         .social-header::after {
             content: '';
             position: absolute;
@@ -88,79 +82,68 @@
             transform: translate(-50%, -50%);
             width: 120%;
             height: 120%;
-            background: rgba(255, 255, 255, 0.2); /* мягкий полупрозрачный glow */
+            background: rgba(255, 255, 255, 0.2);
             filter: blur(10px);
             z-index: -1;
             border-radius: 8px;
         }
-        /* Контейнер кнопок соцсетей */
         .social-buttons-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px; /* расстояние между кнопками */
+            gap: 10px;
         }       
-
-        /* Кнопки соцсетей */
         .social-buttons-container a {
             position: relative;
             display: block;
             width: 200%;
             max-width: 300px;
-            background: rgba(255, 255, 255, 0.15); /* полупрозрачный фон */
+            background: rgba(255, 255, 255, 0.15);
             color: black;
             padding: 12px 20px;
             text-decoration: none;
-            border-radius: 8px;   /* без обводки */
+            border-radius: 8px;
             font-size: 1.35em;
             font-weight: bold;
             text-align: center;
-
-            /* Обводка текста белым 1px */
             text-shadow:
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
                  1px  1px 0 #fff;
-
-            transition: transform 0.2s ease, background 0.3s ease;
+            transition: transform 1.5s ease, background 1.5s ease;
             cursor: pointer;
         }
 
-        /* Hover-эффект */
         .social-buttons-container a:hover {
-            transform: scale(1.05);                  /* лёгкое увеличение */
-            background: rgba(255, 255, 255, 0.3);    /* чуть ярче на hover */
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
         }
 
-
-        /* Блок Топ-3 Донатеров */
         .top-donaters {
             position: relative;
             padding: 20px;
             margin: 40px auto;
             text-align: center;
             border-radius: 12px;
-            background: none;               /* убираем обычный фон */
+            background: none;
             z-index: 0;
         }
 
-        /* Glow-фон под блоком */
         .top-donaters::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 105%;                    /* чуть больше блока */
+            width: 105%;
             height: 120%;
-            background: rgba(255, 255, 255, 0.15);  /* мягкий белый glow */
-            filter: blur(12px);             /* размытие для свечения */
-            z-index: -1;                     /* под контентом */
+            background: rgba(255, 255, 255, 0.15);
+            filter: blur(12px);
+            z-index: -1;
             border-radius: 12px;
         }
 
-        /* Заголовок блока */
         .top-donaters h2 {
             position: relative;
             font-size: 1.8em;
@@ -170,11 +153,10 @@
                 -1px -1px 0 #fff,
                  1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;          /* обводка 1px */
+                 1px  1px 0 #fff;
             margin-bottom: 15px;
         }
 
-        /* Список кнопок */
         .donaters-list {
             display: flex;
             flex-wrap: wrap;
@@ -182,28 +164,27 @@
             gap: 10px;
         }
 
-        /* Кнопки донатеров */
         .donater-button {
-            position: relative;             /* важно для hover */
+            position: relative;
             display: inline-block;
             padding: 10px 30px;
-            background: rgba(255, 217, 0, 0.959); /* желтоватый полупрозрачный */
+            background: rgba(255, 217, 0, 0.959);
             color: black;
             text-decoration: none;
             border-radius: 5px;
             text-align: center;
             font-size: 1.35em;
             font-weight: bold;
-            transition: background 0.3s ease, transform 0.2s ease;
-            backdrop-filter: blur(2px);    /* мягкое размытие */
-            cursor: pointer;                /* чтобы явно показывалось, что это кнопка */
-            z-index: 0;                     /* чтобы hover работал поверх glow */
+            transition: background 1.5s ease, transform 1.5s ease;
+            backdrop-filter: blur(2px);
+            cursor: pointer;
+            z-index: 0;
         }
 
         .donater-button:hover {
-            background: rgb(255, 174, 0); /* чуть ярче при наведении */
-            transform: scale(1.05);             /* лёгкое увеличение */
-            z-index: 1;                          /* на передний план при hover */
+            background: rgb(255, 174, 0);
+            transform: scale(1.05);
+            z-index: 1;
         }
 
         .card-number {
@@ -212,22 +193,7 @@
             text-align: center;
             margin: 40px auto;
         }
-        .card-number h2 {
-            font-size: 2em;
-            font-weight: bold;
-            color: black;
-            letter-spacing: 3px;
-            text-shadow:
-                -2px -2px 0 #fff,
-                 2px -2px 0 #fff,
-                -2px  2px 0 #fff,
-                 2px  2px 0 #fff,
-                -2px 0px 0 #fff,
-                 2px 0px 0 #fff,
-                 0px -2px 0 #fff,
-                 0px  2px 0 #fff;
-        }
-        .card-number .card-value {
+        .card-number h2, .card-number .card-value {
             font-size: 2em;
             font-weight: bold;
             color: black;
@@ -253,6 +219,7 @@
             background: linear-gradient(to right, transparent, #fff, transparent);
             border-radius: 2px;
         }
+
         .services {
             margin-top: 30px;
             width: 100%;
@@ -323,44 +290,109 @@
             border-radius: 8px;
         }
 
-        /* Большая кнопка */
         .button-big {
             position: relative;
             display: block;
             width: 90%;
             max-width: 390px;
-            background: rgba(255, 255, 255, 0.15); /* полупрозрачный фон */
+            background: rgba(255, 255, 255, 0.15);
             color: black;
-            padding: 16px 26px;
-            margin: 12px auto;
-            text-decoration: none;
-            border-radius: 10px; /* без обводки */
-            font-size: 2em;
             font-weight: bold;
+            font-size: 1.6em;
+            padding: 10px 15px;
+            margin: 40px auto;
+            border-radius: 12px;
+            text-decoration: none;
             text-align: center;
-
-            /* Белая обводка текста 1px */
+            transition: transform 1.5s ease, background 1.5s ease;
             text-shadow:
                 -1px -1px 0 #fff,
-                 1px -1px 0 #fff,
+                1px -1px 0 #fff,
                 -1px  1px 0 #fff,
-                 1px  1px 0 #fff;
-
-            transition: transform 0.2s ease, background 0.3s ease;
-            cursor: pointer;
+                1px  1px 0 #fff; 
         }
 
-        /* Hover эффект */
         .button-big:hover {
-            transform: scale(1.05);                  /* лёгкое увеличение */
-            background: rgba(255, 255, 255, 0.3);    /* чуть ярче на hover */
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.28);
         }
 
+        .accordion {
+            width: 100%;
+            max-width: 820px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accordion-btn {
+            position: relative;
+            display: block;
+            width: 90%;
+            max-width: 760px;
+            background: rgba(255,255,255,0.12);
+            color: black;
+            padding: 14px 18px;
+            text-align: center;  /* <-- вот это поменяли */
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            border: 0;
+            transition: transform 0.5s ease, background 0.5s ease;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px  1px 0 #fff,
+                1px  1px 0 #fff;
+        }
+
+
+        .accordion-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            background: rgba(255,255,255,0.22);
+        }
+
+        .accordion-btn:active {
+            transform: translateY(0) scale(0.995);
+        }
+
+        .accordion-btn.active {
+            background: rgba(255,255,255,0.28);
+        }
+
+        .accordion-content {
+            width: 90%;
+            max-width: 760px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(.2,.9,.3,1), opacity 1.5s ease, padding 1.5s ease;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 0 18px;
+            box-sizing: border-box;
+        }
+
+        .accordion-content.show {
+            max-height: 1200px;
+            opacity: 1;
+            padding: 16px 18px 20px 18px;
+        }
         .image-button {
             position: relative;
             display: inline-block;
             margin-top: 20px; /* смещает весь блок вниз */
+            transition: transform 0.3s ease; /* добавляем плавное увеличение всей кнопки */
+        }
 
+        /* при наведении — увеличиваем всю кнопку */
+        .image-button:hover {
+            transform: scale(1.05); /* слегка увеличиваем */
         }
 
         /* верхняя картинка (сама кнопка) */
@@ -381,7 +413,7 @@
             height: auto;
             z-index: 1; /* под кнопкой */
             opacity: 0; /* изначально невидим */
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease; /* плавное появление glow */
             pointer-events: none; /* чтобы glow не мешал клику */
         }
 
@@ -389,7 +421,9 @@
         .image-button:hover .button-glow {
             opacity: 1;
         }
-                /* Мобильные устройства */
+
+
+        /* --- Мобильные устройства --- */
         @media (max-width: 480px) {
             .services-list {
                 max-width: 90%;
@@ -404,22 +438,22 @@
             .card-number .card-value {
                 font-size: 1.5em;
             }
-        .card-number::before,
-        .card-number::after {
-            width: 300px;
-        }
+            .card-number::before,
+            .card-number::after {
+                width: 300px;
+            }
+            .avatar-container{width:100%;height:auto}
+            img.avatar{width:100%;height:auto}
+            video.animation{left:10%;top:180px;width:80%;height:auto}
+            .accordion-btn { font-size: 1.1em; padding: 12px 14px; }
+            .accordion-content { padding: 12px 14px 16px 14px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Контейнер аватара с видео -->
     <div class="avatar-container">
-        <!-- Здесь вставляем аватар -->
         <img src="avatar.png" alt="Аватар" class="avatar">
-
-        <!-- Видео-анимация с прозрачным фоном -->
-        <!-- ВАЖНО: заменить "Nickname.webm" на имя твоего файла -->
         <video class="animation" autoplay loop muted playsinline>
             <source src="Nickname.webm" type="video/webm">
             Ваш браузер не поддерживает видео с прозрачностью.
@@ -438,73 +472,89 @@
     </ul>
 </section>
 
-    
-
     <a href="rozygrysh.html" class="image-button" style="margin-top: 30px;">
         <img src="Roz.png" alt="Button" class="button-main">
         <img src="Roz glow.png" alt="Glow" class="button-glow">
     </a>
 
+    <div class="accordion" aria-label="Меню секций">
 
-
-<section class="services" style="margin-top: 30px;">
-    <h2>🎬 Услуги на стриме</h2>
-    <ul class="services-list">
-        <li>🎞 <strong>150 грн — Один дополнительный фильм</strong><br/>
-            Твой фильм будет добавлен <u>третим</u> к уже подготовленной мной двойке фильмов.
-        </li>
-        <li>🎬 <strong>300 грн — 3 фильма от подписчика</strong><br/>
-            Ты скидываешь 300 грн — и выбираешь 3 фильма для следующего стрима.
-        </li>
-        <li>🌙 <strong>450 грн — Киноночь от подписчика</strong><br/>
-            Ты выбираешь до 5 фильмов, полноценная ночная сессия по твоим вкусам.
-        </li>
-    </ul>
-</section>
-
-
-    
-
-    <div class="card-number">
-        <h2>💳 Номер карты</h2>
-        <p class="card-value">4441 1111 5761 9499</p>
-    </div>
-
-
-        <a href="https://vremennootsytstvyet.donatik.ua" class="image-button" style="margin-bottom: 30px; margin-top: -10px;">
-        <img src="Donat.png" alt="Button" class="button-main">
-        <img src="Donat-glow.png" alt="Glow" class="button-glow">
-    </a>
-
-
-
-
-    <section class="top-donaters" style="margin-top: 30px;">
-        <h2>🔥Топ-3 Донатеров🔥</h2>
-        <div class="donaters-list">
-            <a href="https://www.tiktok.com/@tosya_like" class="donater-button">Тося 🐾</a>
-            <a href="https://www.tiktok.com/@dorianjekill" class="donater-button">Pidlabuzniik</a>
-            <a href="https://www.tiktok.com/@faher__sadok" class="donater-button">Faher_sadok</a>
+        <button class="accordion-btn" aria-expanded="false" aria-controls="services-panel">🎬 Услуги на стриме</button>
+        <div id="services-panel" class="accordion-content" role="region" aria-hidden="true">
+            <h2 style="display:inline-block;padding:10px 15px;font-size:1.8em;font-weight:bold;color:black;text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;">🎬 Услуги на стриме</h2>
+            <ul class="services-list" style="margin-top:12px;text-align:left;">
+                <li>🎞 <strong>150 грн — Один дополнительный фильм</strong><br/>
+                    Твой фильм будет добавлен <u>третим</u> к уже подготовленной мной двойке фильмов.
+                </li>
+                <li>🎬 <strong>300 грн — 3 фильма от подписчика</strong><br/>
+                    Ты скидываешь 300 грн — и выбираешь 3 фильма для следующего стрима.
+                </li>
+                <li>🌙 <strong>450 грн — Киноночь от подписчика</strong><br/>
+                    Ты выбираешь до 5 фильмов, полноценная ночная сессия по твоим вкусам.
+                </li>
+            </ul>
         </div>
-    </section>
 
+        <button class="accordion-btn" aria-expanded="false" aria-controls="donate-panel">💳 Донат</button>
+        <div id="donate-panel" class="accordion-content" role="region" aria-hidden="true">
+            <div class="card-number" style="margin-top:6px;">
+                <h2>💳 Номер карты</h2>
+                <p class="card-value">4441 1111 5761 9499</p>
+            </div>
 
-    <div class="social-header" style="margin-top: 30px;">Соцсети</div>
+            <a href="https://vremennootsytstvyet.donatik.ua" class="image-button" style="margin:6px 0 16px 0; display:inline-block;">
+                <img src="Donat.png" alt="Button" class="button-main">
+                <img src="Donat-glow.png" alt="Glow" class="button-glow">
+            </a>
 
-    <div class="social-buttons-container" style="margin-top: 10px;">
-        <a href="https://t.me/vremenno_otsyststvyet" target="_blank">📢 Телеграм</a>
-        <a href="https://www.tiktok.com/@.vremenno.otsytstvyet" target="_blank">🎵 TikTok</a>
-        <a href="https://www.youtube.com/@VREMENNO_OTSYTSTVYET" target="_blank">▶️ YouTube</a>
-        <a href="https://www.twitch.tv/vremennootsytstvyet" target="_blank">🎮 TWITCH</a>
-        <a href="https://kick.com/vremenno-otsytstvyet" target="_blank">KICK</a>
+            <section class="top-donaters" style="margin-top: 10px;">
+                <h2>🔥Топ-3 Донатеров🔥</h2>
+                <div class="donaters-list">
+                    <a href="https://www.tiktok.com/@tosya_like" class="donater-button">Тося 🐾</a>
+                    <a href="https://www.tiktok.com/@dorianjekill" class="donater-button">Pidlabuzniik</a>
+                    <a href="https://www.tiktok.com/@faher__sadok" class="donater-button">Faher_sadok</a>
+                </div>
+            </section>
+
+            <div style="margin-top:14px;">
+                <a href="http://real-debrid.com/?id=15290616" title="Real-Debrid"><img src="http://real-debrid.com/static/images/banner/ru.png" alt="Real-Debrid" /></a>
+            </div>
+        </div>
+
+        <button class="accordion-btn" aria-expanded="false" aria-controls="socials-panel">📱 Соцсети</button>
+        <div id="socials-panel" class="accordion-content" role="region" aria-hidden="true">
+            <div class="social-header" style="margin-top:0;display:block;">Соцсети</div>
+            <div class="social-buttons-container" style="margin-top:10px;">
+                <a href="https://t.me/vremenno_otsyststvyet" target="_blank">📢 Телеграм</a>
+                <a href="https://www.tiktok.com/@.vremenno.otsytstvyet" target="_blank">🎵 TikTok</a>
+                <a href="https://www.youtube.com/@VREMENNO_OTSYTSTVYET" target="_blank">▶️ YouTube</a>
+                <a href="https://www.twitch.tv/vremennootsytstvyet" target="_blank">🎮 TWITCH</a>
+                <a href="https://kick.com/vremenno-otsytstvyet" target="_blank">KICK</a>
+            </div>
+        </div>
+
     </div>
-    <a href="https://magic-jumpsuit-8db.notion.site/6c1eed1bcf664532a7fb7c446a0a5342?v=026bb9d0a5fc463fa959c922345d0842" class="button-big" style="margin-top: 30px;">📅 График фильмов</a>
-    
-    <a href="http://real-debrid.com/?id=15290616" title="Real-Debrid" style="margin-top: 15px;"><img src="http://real-debrid.com/static/images/banner/ru.png" /></a>
 
-
-
-
+    <a href="https://magic-jumpsuit-8db.notion.site/6c1eed1bcf664532a7fb7c446a0a5342?v=026bb9d0a5fc463fa959c922345d0842" class="button-big" style="margin-top: 6px;">📅 График фильмов</a>
 
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const accButtons = document.querySelectorAll('.accordion-btn');
+
+        accButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const panel = document.getElementById(btn.getAttribute('aria-controls'));
+                const isOpen = btn.classList.contains('active');
+
+                btn.classList.toggle('active');
+                panel.classList.toggle('show');
+
+                btn.setAttribute('aria-expanded', (!isOpen).toString());
+                panel.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+            });
+        });
+    });
+</script>
 </html>
