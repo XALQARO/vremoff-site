@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВРЕМЕННО ОТСУТСТВУЕТ</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #e0e0e0;
+  overflow: hidden;
+  transition: opacity 1.03s ease;
+}
+body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
+
+/* --- Лоадер --- */
+#loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+.loader-ring {
+  width: 60px; height: 60px;
+  border: 5px solid #ccc;
+  border-top: 5px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Шапка --- */
+.header {
+  height: 33vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #e0e0e0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 2;
+  position: relative;
+}
+.header.hide {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+.avatar {
+  width: clamp(80px, 20vw, 140px);
+  height: clamp(80px, 20vw, 140px);
+  border-radius: 50%;
+  border: 3px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+.greeting {
+  margin-top: 1vh;
+  color: #111;
+  font-size: clamp(14px, 4vw, 18px);
+  line-height: 1.4em;
+  font-weight: 400;
+}
+
+/* --- Основные секции --- */
+.main {
+  width: 100%;
+  height: 67vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.section {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  filter: grayscale(100%);
+  transition: all 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.section img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s ease, filter 1s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.section .title {
+  position: relative;
+  z-index: 3;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 42px);
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  margin-bottom: 70px;
+  transition: all 0.6s ease;
+}
+
+/* --- Раскрытие секции --- */
+.section.expanded {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  filter: grayscale(0%);
+  cursor: default;
+  animation: fadeInSection 0.8s ease forwards;
+}
+@keyframes fadeInSection { from { opacity: 0; } to { opacity: 1; } }
+.section.collapsing { animation: fadeOutSection 0.6s ease forwards; }
+@keyframes fadeOutSection { from { opacity: 1; } to { opacity: 0; } }
+
+/* --- Исправление мигания --- */
+.section.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.section.expanded img { filter: none; transform: scale(1.08); }
+
+/* --- Заголовок --- */
+.section.expanded .title {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  opacity: 0;
+  color: #111;
+  text-shadow: none;
+  white-space: nowrap;
+  text-align: center;
+  animation: fadeInTitle 0.8s ease forwards 0.3s;
+    text-shadow:
+    -1px -1px 5px #fff,
+     1px -1px 5px #fff,
+    -1px  1px 5px #fff,
+     1px  1px 5px #fff;
+}
+@keyframes fadeInTitle {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes fadeOutTitle { from {opacity:1;} to {opacity:0;} }
+
+/* --- Контент --- */
+.section .content {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  text-align: center;
+  color: rgba(0,0,0,0.85);
+  width: 90%;
+  z-index: 4;
+  pointer-events: none;
+  background: rgba(85, 85, 85, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 25px 20px;
+}
+.section.expanded .content { animation: fadeUpContent 0.9s ease forwards 0.8s; pointer-events: auto; }
+@keyframes fadeUpContent { from { opacity: 0; transform: translate(-50%, 30px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes fadeOutContent { from { opacity: 1; } to { opacity: 0; } }
+
+.section .content p {
+  font-size: clamp(15px, 4vw, 18px);
+  font-weight: 300;
+  line-height: 1.5em;
+  margin: 12px 0;
+}
+.section .content b { font-weight: 600; color: #000; }
+.section .buttons {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.section .buttons a {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  pointer-events: none;
+  opacity: 0;
+  font-weight: 400;
+  width: 220px;
+  text-align: center;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.section.expanded .buttons a { pointer-events: auto; opacity: 1; }
+.section .buttons a:hover { background: rgba(0, 0, 0, 0.9); }
+
+/* --- Кнопка Назад --- */
+.back-btn {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section.expanded .back-btn { animation: fadeInBack 0.8s ease forwards 1.3s; pointer-events: auto; }
+@keyframes fadeInBack { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes fadeOutBack { from { opacity: 1; } to { opacity: 0; } }
+
+.section.dimmed {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: all 0.6s ease;
+}
+</style>
+</head>
+<body>
+
+<audio id="transition-sound" src="Transitions SFX_13.wav" preload="auto"></audio>
+
+<div id="loader"><div class="loader-ring"></div></div>
+
+<div class="header">
+  <img src="avatar2.jpg" class="avatar" alt="Аватар">
+  <div class="greeting">
+     <b>Привет, дружище!</b><br>
+    Добро пожаловать — это моя визитка.<br>
+    Здесь ты найдёшь все нужные ссылки <br>
+    на мои <b>СОЦСЕТИ</b> и <b>ДОНАТ</b>.<br>
+    Подписывайся и не теряйся.<br>
+    <b>Залетай на стримы!</b> 
+  </div>
+</div>
+
+<div class="main">
+  <div class="section" id="s1">
+    <img src="section1.png" alt="">
+    <div class="title">Услуги на стриме</div>
+    <div class="content">
+      <p>🎞 <b>150 грн</b> — один дополнительный фильм.<br><span>Твой фильм будет добавлен третьим к уже подготовленной мной двойке фильмов.</span></p>
+      <p>🎬 <b>300 грн</b> — 3 фильма от подписчика.<br><span>Ты скидываешь 300 грн и выбираешь 3 фильма для следующего стрима.</span></p>
+      <p>🌙 <b>450 грн</b> — киноночь от подписчика.<br><span>Ты выбираешь до 5 фильмов — полноценная ночная сессия по твоим вкусам.</span></p>
+      <div class="buttons">
+        <a href="vip-status.htm">VIP</a>
+        <a href="rozygrysh.html"> Конкурс</a>
+        <a href="https://magic-jumpsuit-8db.notion.site/be8243bf2a074ea58c48aa1f6d09ed18?v=d146360508f345b2a9e77da87e1929be&pvs=74" target="_blank">Статус заказов</a>
+      </div>
+    </div>
+    <button class="back-btn">Назад</button>
+  </div>
+
+  <div class="section" id="s2">
+    <img src="section2.png" alt="">
+    <div class="title">Донат</div>
+    <div class="content">
+      <p><b>Если вам нравится то, что я делаю</b> — вы можете поддержать меня любым удобным способом: 💳 донатом, переводом на карту или просто добрым словом 💬</p>
+      <p>Каждая даже небольшая помощь 🙏 помогает мне продолжать создавать контент, улучшать эфиры и развивать всё то, что вы видите здесь 🌟</p>
+      <p><b>Любая поддержка</b> — это огромная мотивация двигаться дальше </p>
+      <div class="buttons">
+        <a href="donat.html">Поддержать</a>
+      </div>
+    </div>
+    <button class="back-btn">Назад</button>
+  </div>
+
+  <div class="section" id="s3">
+    <img src="section3.jpg" alt="">
+    <div class="title">Социальные сети</div>
+    <div class="content">
+      <p><b>Переходите</b> на все платформы, где представлен проект:</p>
+      <div class="buttons">
+        <a href="https://www.tiktok.com/@.vremenno.otsytstvyet">TikTok</a>
+        <a href="https://t.me/+6UYvKwCb4y1hYmNi">Telegram</a>
+        <a href="https://www.youtube.com/@VREMENNO_OTSYTSTVYET">YouTube</a>
+        <a href="https://www.twitch.tv/vremennootsytstvyet">Twitch</a>
+      </div>
+    </div>
+    <button class="back-btn">Назад</button>
+  </div>
+</div>
+
+<script>
+const sound = document.getElementById("transition-sound");
+sound.volume = 0.02;
+
+/* Проверка устройства */
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i.test(navigator.userAgent);
+}
+if (!isMobileDevice()) window.location.href = "index.html";
+
+/* Лоадер */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 500);
+  }, 300);
+});
+
+/* Анимация секций */
+const header = document.querySelector(".header");
+const sections = document.querySelectorAll(".section");
+
+sections.forEach(section => {
+  const backBtn = section.querySelector(".back-btn");
+
+  section.addEventListener("click", () => {
+    if (section.classList.contains("expanded")) return;
+    playTransitionSound();
+    sections.forEach(s => { if (s !== section) s.classList.add("dimmed"); });
+    section.classList.add("expanded");
+    header.classList.add("hide");
+    section.classList.remove("hidden");
+  });
+
+  backBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    playTransitionSound();
+    section.classList.add("collapsing");
+    section.classList.add("hidden");
+    section.classList.remove("expanded");
+
+    setTimeout(() => {
+      sections.forEach(s => s.classList.remove("dimmed"));
+      header.classList.remove("hide");
+      section.classList.remove("collapsing", "hidden");
+    }, 1030);
+  });
+});
+
+/* Звук */
+function playTransitionSound() {
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
+}
+
+/* Fade-out переходы */
+document.querySelectorAll('a[href]').forEach(link => {
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    playTransitionSound();
+    setTimeout(() => window.location.href = href, 1030);
+  });
+});
+</script>
+
+</body>
+</html>

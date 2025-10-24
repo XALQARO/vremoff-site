@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВРЕМЕННО ОТСУТСТВУЕТ</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'VofFF2';
+    src: url('VofFF2.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+  margin:0;
+  padding:0;
+  font-family: 'VofFF2', sans-serif;
+  background-color:#e0e0e0;
+  overflow-x:hidden;
+  transition: opacity 0.6s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1.03s ease;
+}
+
+/* --- Лоадер --- */
+#loader {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  transition: opacity 0.5s ease;
+}
+.loader-ring {
+  position: relative; width:60px; height:60px;
+}
+.loader-ring::before, .loader-ring::after {
+  content:''; position:absolute;
+  border:4px solid #111; border-radius:50%;
+  width:50px; height:50px; top:0; left:0;
+  border-top-color:transparent; border-bottom-color:transparent;
+  animation: spin 1.2s linear infinite;
+}
+.loader-ring::after {
+  width:40px; height:40px; top:10px; left:10px;
+  animation-duration:0.8s; border-left-color:transparent; border-right-color:transparent;
+}
+@keyframes spin { 0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);} }
+
+#app { display:none; }
+
+/* --- Хедер --- */
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(20px,5vw,60px) clamp(10px,2vw,20px);
+  z-index: 2;
+  opacity:0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.header.show { opacity:1; transform: translateY(0); }
+
+.avatar {
+  display: block;
+  margin: 0 auto;
+  width: clamp(80px, 10vw, 150px);
+  height: clamp(80px, 10vw, 150px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.greeting {
+  margin-top: clamp(10px, 2vw, 20px);
+  font-size: clamp(14px, 1.5vw, 25px);
+  color: #111;
+  text-align: center;
+  padding:10px 20px;
+  border-radius:10px;
+  display:inline-block;
+}
+
+/* --- Секции --- */
+.sections {
+  display: flex;
+  height: 110vh;
+  position: relative;
+  margin: clamp(10px, 2vw, 20px) 0;
+  transition: all 0.6s ease;
+}
+.section {
+  flex: 1;
+  position: relative;
+  background-color: #ccc;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.6s ease;
+}
+
+/* --- Градиенты сверху и снизу --- */
+.section::before,
+.section::after {
+  content:''; position:absolute;
+  left:0; width:100%; height:10%;
+  pointer-events:none; z-index:2;
+}
+.section::before { top:0; background: linear-gradient(to bottom, rgba(224,224,224,1), rgba(224,224,224,0)); }
+.section::after  { bottom:0; background: linear-gradient(to top, rgba(224,224,224,1), rgba(224,224,224,0)); }
+
+.section img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.6s ease, transform 1.2s ease;
+  position: absolute; top: 0; left: 0; z-index: 0;
+  transform: scale(1);
+}
+.section.expanded img { 
+  filter: none;
+  transform: scale(1.05);
+}
+
+.section.dimmed {
+  opacity:0;
+  transform: scale(0.95);
+  pointer-events:none;
+  transition: all 0.6s ease;
+}
+
+.section.expanded {
+  position: relative;
+  flex: 1 1 100%;
+  width: 100%;
+  z-index:5;
+  transition: all 0.8s ease;
+}
+
+/* --- Заголовки --- */
+.section .title {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  font-weight: 700;
+  font-size: clamp(1.5em, 2.5vw, 4.0em);
+  color: #EDEDED;
+  text-align: center;
+  line-height: 1.2em;
+  z-index: 5;
+  text-shadow: 1px 1px 2px #000;
+  transition: transform 0.6s ease, color 0.6s ease, text-shadow 0.6s ease, top 0.6s ease;
+}
+.section.expanded .title {
+  top: 10%;
+  transform: translate(-50%, 0) scale(1.4);
+  color: #2c2c2c;
+  text-shadow: 
+    -1px -1px 2px #fff,
+     1px -1px 2px #fff,
+    -1px  1px 2px #fff,
+     1px  1px 2px #fff;
+}
+
+/* --- Контент --- */
+.section .content {
+  position: relative;
+  margin-top: -150px;
+  z-index: 4;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  padding: clamp(10px, 2vw, 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 80%;
+  background: rgba(99, 99, 99, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+.section.expanded .content {
+  pointer-events: auto;
+}
+
+.section .content p {
+  font-size: clamp(14px, 1.5vw, 25px);
+  color: #111;
+  text-align: center;
+  font-weight: 700;
+  text-shadow:
+    -1px -1px 5px #fff,
+     1px -1px 5px #fff,
+    -1px  1px 5px #fff,
+     1px  1px 5px #fff;
+}
+.buttons {
+  margin-top: clamp(10px, 2vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 2vw, 20px);
+}
+.buttons a {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  text-decoration: none;
+  padding: clamp(8px, 1vw, 16px) clamp(16px, 2vw, 30px);
+  font-size: clamp(14px, 1vw, 18px);
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+.buttons a:hover { background: rgba(0,0,0,0.7); }
+
+/* --- Стрелки --- */
+.arrow {
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  z-index: 10;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.section.expanded .arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+.arrow::before, .arrow::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: #fff;
+  border-radius: 2px;
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+.arrow-left { left: 20px; }
+.arrow-left::before { left: 6px; top: 8px; transform: rotate(45deg); }
+.arrow-left::after  { left: 6px; top: -2px; transform: rotate(-45deg); }
+.arrow-right { right: 20px; }
+.arrow-right::before { right: 6px; top: 8px; transform: rotate(-45deg); }
+.arrow-right::after  { right: 6px; top: -2px; transform: rotate(45deg); }
+.arrow:hover { transform: translateY(-50%) scale(1.1); }
+.arrow:hover::before, .arrow:hover::after {
+  background: #eaeaea;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.45));
+}
+
+/* === Боковые фотографии возле аватарки === */
+/* === Общие стили боковых изображений === */
+.side-image {
+  position: fixed;
+  top: 50%;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.side-image img {
+  width: auto;
+  height: 60vh;
+  object-fit: cover;
+  filter: brightness(0.95) contrast(1.05);
+}
+
+/* === ЛЕВАЯ ФОТОГРАФИЯ === */
+.side-image-left {
+  left: 5vw;
+  --img-scale: 0.55;       /* базовый масштаб */
+  --offset-x: -100px;        /* сдвиг по X */
+  --offset-y: -370px;       /* сдвиг по Y */
+  transform: translate(var(--offset-x), var(--offset-y)) scale(var(--img-scale));
+}
+
+/* === ПРАВАЯ ФОТОГРАФИЯ === */
+.side-image-right {
+  right: 5vw;
+  --img-scale: 0.69;
+  --offset-x: 200px;
+  --offset-y: -370px;
+  transform: translate(var(--offset-x), var(--offset-y)) scale(var(--img-scale));
+}
+
+/* === Fade-in + лёгкое опускание вниз === */
+.side-image.visible {
+  opacity: 1;
+  animation: sideFadeIn 0.9s ease forwards;
+}
+
+@keyframes sideFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(var(--offset-x), calc(var(--offset-y) - 15px)) scale(var(--img-scale));
+  }
+  to {
+    opacity: 1;
+    transform: translate(var(--offset-x), var(--offset-y)) scale(var(--img-scale));
+  }
+}
+
+/* === Адаптивные настройки для ЛЕВОЙ фотографии === */
+@media (max-width: 1600px) {
+  .side-image-left {
+    --img-scale: 0.65;
+    left: 4vw;
+  }
+}
+@media (max-width: 1200px) {
+  .side-image-left {
+    --img-scale: 0.55;
+    left: 3vw;
+  }
+}
+@media (max-width: 900px) {
+  .side-image-left {
+    --img-scale: 0.45;
+    left: 2vw;
+  }
+}
+@media (max-width: 700px) {
+  .side-image-left {
+    --img-scale: 0.4;
+    left: 1vw;
+  }
+}
+
+/* === Адаптивные настройки для ПРАВОЙ фотографии === */
+@media (max-width: 1600px) {
+  .side-image-right {
+    --img-scale: 0.65;
+    right: 4vw;
+  }
+}
+@media (max-width: 1200px) {
+  .side-image-right {
+    --img-scale: 0.55;
+    right: 3vw;
+  }
+}
+@media (max-width: 900px) {
+  .side-image-right {
+    --img-scale: 0.45;
+    right: 2vw;
+  }
+}
+@media (max-width: 700px) {
+  .side-image-right {
+    --img-scale: 0.4;
+    right: 1vw;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- 🎵 Аудиоэффект -->
+<audio id="transition-sound" src="Transitions SFX_13.wav" preload="auto"></audio>
+
+<div id="loader"><div class="loader-ring"></div></div>
+
+<div id="app">
+<div class="header">
+  <div class="side-image side-image-left">
+    <img src="VREMENNO.png" alt="Левая фотография">
+  </div>
+
+  <img src="avatar2.jpg" class="avatar" alt="Аватар">
+
+  <div class="side-image side-image-right">
+    <img src="OTSYTSTVYET.png" alt="Правая фотография">
+  </div>
+
+  <div class="greeting">
+    <p>👋 Привет, дружище! Добро пожаловать — это моя визитка. Здесь ты найдёшь все нужные ссылки на мои СОЦСЕТИ и ДОНАТ.<br>
+    Подписывайся и не теряйся. Залетай на стримы! 🎉</p>
+  </div>
+</div>
+
+  </div>
+
+  <div class="sections">
+    <div class="section">
+      <img src="section1.png" alt="Секция 1">
+      <div class="title"><span>Услуги на стриме</span></div>
+      <div class="content">
+        <p>🎞 <b>150 грн — Один дополнительный фильм</b><br>Твой фильм будет добавлен третьим к уже подготовленной мной двойке фильмов.</p>
+        <p>🎬 <b>300 грн — 3 фильма от подписчика</b><br>Ты скидываешь 300 грн — и выбираешь 3 фильма для следующего стрима.</p>
+        <p>🌙 <b>450 грн — Киноночь от подписчика</b><br>Ты выбираешь до 5 фильмов, полноценная ночная сессия по твоим вкусам.</p>
+        <div class="buttons">
+          <a href="rozygrysh.html">Конкурс</a>
+          <a href="vip-status.htm">VIP</a>
+          <a href="https://magic-jumpsuit-8db.notion.site/be8243bf2a074ea58c48aa1f6d09ed18?v=d146360508f345b2a9e77da87e1929be&pvs=74">Статус заказов</a>
+        </div>
+      </div>
+      <div class="arrow arrow-right"></div>
+    </div>
+
+    <div class="section">
+      <img src="section2.png" alt="Секция 2">
+      <div class="title"><span>Донат</span></div>
+      <div class="content">
+        <p><b>Если вам нравится то, что я делаю — вы можете поддержать меня любым удобным способом:</b> 💳 донатом, переводом на карту или просто добрым словом 💬</p>
+        <p>Каждая даже небольшая помощь 🙏 помогает мне продолжать создавать контент, улучшать эфиры и развивать всё то, что вы видите здесь 🌟</p>
+        <p><b>Любая поддержка</b> — это огромная мотивация двигаться дальше 🚀</p>
+        <div class="buttons">
+          <a href="donat_desctop.html">Поддержать</a>
+        </div>
+      </div>
+      <div class="arrow arrow-left"></div>
+      <div class="arrow arrow-right"></div>
+    </div>
+
+    <div class="section">
+      <img src="section3.jpg" alt="Секция 3">
+      <div class="title"><span>Платформы</span></div>
+      <div class="content">
+        <p>Переходите на все платформы, где представлен проект:</p>
+        <div class="buttons">
+          <a href="https://www.tiktok.com/@.vremenno.otsytstvyet">TikTok</a>          
+          <a href="https://t.me/+6UYvKwCb4y1hYmNi">Telegram</a>
+          <a href="https://www.youtube.com/@VREMENNO_OTSYTSTVYET">YouTube</a>
+          <a href="https://www.twitch.tv/vremennootsytstvyet">Twitch</a>
+        </div>
+      </div>
+      <div class="arrow arrow-left"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  loader.style.opacity = '0';
+  setTimeout(() => loader.style.display = 'none', 500);
+  document.getElementById('app').style.display = 'block';
+  document.querySelector('.header').classList.add('show');
+});
+
+/* === Проверка устройства === */
+(function(){
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini|IEMobile/i.test(navigator.userAgent);
+  }
+  var mobileFile = 'mobile.html';
+  var pathname = window.location.pathname.split('/').pop();
+  if (isMobileDevice() && pathname !== mobileFile) {
+    var dest = mobileFile + window.location.search + window.location.hash;
+    window.location.replace(dest);
+  }
+})();
+
+/* === Параллакс === */
+const avatar = document.querySelector('.avatar');
+const greeting = document.querySelector('.greeting');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  avatar.style.transform = `translateY(-${Math.min(y * 0.5, 200)}px)`;
+  avatar.style.opacity = Math.max(1 - y / 300, 0);
+  greeting.style.transform = `translateY(-${Math.min(y * 0.3, 100)}px)`;
+  greeting.style.opacity = Math.max(1 - y / 400, 0);
+});
+
+/* === Звук перехода === */
+const sound = document.getElementById("transition-sound");
+function playTransitionSound() {
+  sound.currentTime = 0;
+  sound.volume = 0.02;
+  sound.play().catch(()=>{});
+}
+
+/* === Анимация секций === */
+const sections = document.querySelectorAll('.section');
+sections.forEach((section, i) => {
+  const content = section.querySelector('.content');
+  const left = section.querySelector('.arrow-left');
+  const right = section.querySelector('.arrow-right');
+  let isAnimating = false;
+
+  const expand = () => {
+    if (section.classList.contains('expanded') || isAnimating) return;
+    isAnimating = true;
+    playTransitionSound(); // звук при раскрытии
+    section.classList.add('expanded');
+    sections.forEach(s => { if (s !== section) s.classList.add('dimmed'); });
+    setTimeout(() => {
+      content.style.opacity = '1';
+      content.style.transform = 'translateY(0)';
+      isAnimating = false;
+    }, 400);
+  };
+
+  const collapse = () => {
+    if (!section.classList.contains('expanded') || isAnimating) return;
+    isAnimating = true;
+    playTransitionSound(); // звук при сворачивании
+    content.style.opacity = '0';
+    content.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      section.classList.remove('expanded');
+      sections.forEach(s => s.classList.remove('dimmed'));
+      isAnimating = false;
+    }, 600);
+  };
+
+  section.addEventListener('click', () => {
+    if (section.classList.contains('expanded')) collapse();
+    else expand();
+  });
+
+  if (left) left.addEventListener('click', e => {
+    e.stopPropagation();
+    playTransitionSound();
+    collapse();
+    if (i > 0) sections[i-1].click();
+  });
+
+  if (right) right.addEventListener('click', e => {
+    e.stopPropagation();
+    playTransitionSound();
+    collapse();
+    if (i < sections.length-1) sections[i+1].click();
+  });
+
+  section.querySelectorAll('.buttons a').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      playTransitionSound(); // звук при нажатии кнопки
+    });
+  });
+});
+
+/* === Плавное затухание при переходе по ссылке === */
+document.querySelectorAll('a[href]').forEach(link => {
+  const url = link.getAttribute('href');
+  if (!url || url.startsWith('#') || url.startsWith('javascript:')) return;
+
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    playTransitionSound(); // звук при переходе
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+      window.location.href = url;
+    }, 600);
+  });
+});
+/* === Эффект появления боковых фотографий === */
+const sideImages = document.querySelectorAll('.side-image');
+
+function showSideImages() {
+  sideImages.forEach(img => {
+    img.classList.add('visible');
+  });
+}
+
+function hideAndShowOnTop() {
+  const scrollY = window.scrollY;
+  if (scrollY <= 30) { // если пользователь почти вверху
+    sideImages.forEach(img => {
+      img.classList.remove('visible');
+      // перезапускаем анимацию заново для плавности
+      void img.offsetWidth; // перезапуск CSS-анимации
+      img.classList.add('visible');
+    });
+  }
+}
+
+window.addEventListener('load', showSideImages);
+window.addEventListener('scroll', hideAndShowOnTop);
+
+</script>
+</body>
+</html>

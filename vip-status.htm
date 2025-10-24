@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP СТАТУС</title>
+<link href='https://fonts.googleapis.com/css2?family=Rubik&display=swap' rel='stylesheet'>
+<style>
+/* === Глобальный fade-in / fade-out === */
+html {
+  height: 100%;
+  background: url('section1.png') no-repeat center center;
+  background-size: 130% 100%; /* растягивает по высоте, сохраняет пропорции */
+  background-position: center center;
+  background-attachment: fixed;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+html.loaded {
+  opacity: 1;
+}
+
+html.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* === Основной стиль страницы === */
+body {
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0);
+}
+
+/* Контейнер VIP */
+.vip-container {
+  position: relative;
+  background: rgba(112, 112, 112, 0.322);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 860px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  margin-top: 40px;
+}
+
+/* Заголовок */
+.vip-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: black;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}
+
+/* Подзаголовки */
+.vip-subtitle, .vip-subtitle-red {
+  font-size: 1.5em;
+  margin: 20px 0 12px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}
+.vip-subtitle { background: rgba(255, 255, 255, 0.15); }
+.vip-subtitle-red { background: rgba(255, 0, 0, 0.2); }
+
+/* Списки */
+.vip-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0 0;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}
+.vip-container li {
+  background: none;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 1.25em;
+  color: black;
+  font-weight: bold;
+}
+.highlight-red { color: rgb(119, 14, 14); }
+.highlight-red-2 { color: rgb(255, 0, 0); }
+
+/* Ограничения */
+.restrictions {
+  background: rgba(255, 0, 0, 0.2);
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+.restrictions li {
+  background: none;
+  padding: 10px 0;
+}
+
+/* Кнопка Назад */
+.back-button {
+  margin-top: 25px;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px 32px;
+  border-radius: 10px;
+  font-size: 1.2em;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Адаптация под мобильные */
+@media (max-width: 480px) {
+  .vip-container {
+    padding: 20px;
+  }
+  .vip-container li,
+  .restrictions li {
+    font-size: 1.1em;
+    padding: 10px 12px;
+  }
+  .vip-title {
+    font-size: 1.5em;
+    padding: 8px 12px;
+  }
+  .vip-subtitle,
+  .vip-subtitle-red {
+    font-size: 1.3em;
+    padding: 8px 12px;
+  }
+  .back-button {
+    font-size: 1em;
+    padding: 10px 26px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Аудио эффект -->
+<audio id="transition-sound" src="Transitions SFX_13.wav" preload="auto"></audio>
+
+<div class="vip-container">
+  <div class="vip-title">🌟 VIP СТАТУС 🌟</div>
+
+  <p>✨ <span class="highlight-red-2">Условия получения VIP-статуса</span> ✨</p>
+
+  <div class="vip-subtitle">🎬 Как получить VIP-статус:</div>
+  <ul>
+    <li>💳 Единовременно переводишь <span class="highlight-red">12 000 грн</span> → получаешь <span class="highlight-red">VIP-статус на 3 года</span> 🎉</li>
+    <li>🎥 В VIP включено <span class="highlight-red">неограниченное количество заказов фильмов, троек фильмов или киноночей</span> ✨</li>
+    <li>📌 Можно заказывать фильмы обычным способом, все суммы учитываются в накопительную сумму 🏆</li>
+    <li>⏱ Если за <span class="highlight-red">2 месяца</span> накопить <span class="highlight-red">12 000 грн</span> через заказы — VIP-статус на <span class="highlight-red">2 года</span> 🌟</li>
+  </ul>
+
+  <div class="vip-subtitle-red">⚠️ Ограничения:</div>
+  <div class="restrictions">
+    <ul>
+      <li>❌ Контент проходит модерацию. Откровенная порнография или чрезмерно жестокие сцены — отказ 🚫</li>
+      <li>✅ Во всем остальном можно заказывать любые фильмы по желанию 🎉</li>
+    </ul>
+  </div>
+</div>
+
+<a href="index.html" class="back-button">⬅ Назад</a>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const html = document.documentElement;
+  const sound = document.getElementById("transition-sound");
+
+  // Fade-in всей страницы
+  requestAnimationFrame(() => {
+    html.classList.add("loaded");
+  });
+
+  // Fade-out с проигрыванием звука
+  document.querySelectorAll("a[href]").forEach(link => {
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("javascript:")) return;
+
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      html.classList.remove("loaded");
+      html.classList.add("fade-out");
+
+      // Проигрываем звук при переходе
+      sound.currentTime = 0;
+      sound.volume = 0.02;
+      sound.play().catch(() => {});
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 1000); // идеально под 1.03s звук
+    });
+  });
+});
+</script>
+
+</body>
+</html>
