@@ -7,8 +7,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* === 🎨 Глобальные настройки цветокоррекции === */
+:root {
+  --brightness: 0.85;      /* 1 — стандартная яркость */
+  --contrast: 1;        /* 1 — стандартный контраст */
+  --saturation: 1;      /* 1 — стандартная насыщенность */
+  --gamma: 0.8;           /* гамма (1 — стандарт) */
+  --exposure: 0px;      /* свечение (0px = нет эффекта) */
+}
+
+
+
 /* === Fade-in / Fade-out всей страницы === */
 html {
+  filter:
+  brightness(var(--brightness))
+  contrast(var(--contrast))
+  saturate(var(--saturation))
+  drop-shadow(0 0 var(--exposure) rgba(255,255,255,0.25));
+  transition: filter 0.4s ease;
   height: 100%;
   background: url('section2.png') no-repeat center center;
   background-size: cover;

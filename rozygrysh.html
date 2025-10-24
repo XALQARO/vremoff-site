@@ -6,7 +6,20 @@
     <title>🎁 Розыгрыш фильмов</title>
     <link href='https://fonts.googleapis.com/css2?family=Rubik&display=swap' rel='stylesheet'>
     <style>
+        :root {
+        --brightness: 0.85;      /* 1 — стандартная яркость */
+        --contrast: 1;        /* 1 — стандартный контраст */
+        --saturation: 1;      /* 1 — стандартная насыщенность */
+        --gamma: 0.8;           /* гамма (1 — стандарт) */
+        --exposure: 0px;      /* свечение (0px = нет эффекта) */
+        }
         html {
+            filter:
+            brightness(var(--brightness))
+            contrast(var(--contrast))
+            saturate(var(--saturation))
+            drop-shadow(0 0 var(--exposure) rgba(255,255,255,0.25));
+            transition: filter 0.4s ease;
             opacity: 0;
             transition: opacity 1s ease;
         }
