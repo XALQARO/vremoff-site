@@ -11,8 +11,14 @@ html, body {
   padding: 0;
   font-family: 'Space Grotesk', sans-serif;
   background-color: #e0e0e0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: opacity 1.03s ease;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: базовый размер шрифта под экран */
+  font-size: clamp(14px, 1.8vw, 18px);
+}
+body {
+  padding-bottom: clamp(110px, 5vh, 180px);
 }
 body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
 
@@ -74,10 +80,9 @@ body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
 /* --- Основные секции --- */
 .main {
   width: 100%;
-  height: 67vh;
+  min-height: 67vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
 }
 .section {
@@ -121,6 +126,8 @@ body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
   filter: grayscale(0%);
   cursor: default;
   animation: fadeInSection 0.8s ease forwards;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 @keyframes fadeInSection { from { opacity: 0; } to { opacity: 1; } }
 .section.collapsing { animation: fadeOutSection 0.6s ease forwards; }
@@ -134,40 +141,41 @@ body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
 
 .section.expanded img { filter: none; transform: scale(1.08); }
 
-/* --- Заголовок --- */
+/* --- Заголовок секции --- */
 .section.expanded .title {
   position: absolute;
-  top: 100px;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: положение заголовка по высоте */
+  top: clamp(70px, 15vh, 110px);
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   opacity: 0;
-  color: #111;
-  text-shadow: none;
+  color: #111 !important;
   white-space: nowrap;
   text-align: center;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: размер заголовка */
+  font-size: clamp(24px, 5vw, 38px);
   animation: fadeInTitle 0.8s ease forwards 0.3s;
-    text-shadow:
-    -1px -1px 5px #fff,
-     1px -1px 5px #fff,
-    -1px  1px 5px #fff,
-     1px  1px 5px #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0,0.5);
 }
+
 @keyframes fadeInTitle {
   from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 @keyframes fadeOutTitle { from {opacity:1;} to {opacity:0;} }
 
-/* --- Контент --- */
+/* --- Контент внутри секции --- */
 .section .content {
   position: absolute;
-  top: 200px;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: отступ сверху */
+  top: clamp(150px, 32vh, 230px);
   left: 50%;
   transform: translate(-50%, 20px);
   opacity: 0;
   text-align: center;
   color: rgba(0,0,0,0.85);
-  width: 90%;
+  /* ИЗМЕНЕНО: ширина чуть адаптивнее, чтобы на больших экранах не была слишком широкой */
+  width: min(94%, 560px);
   z-index: 4;
   pointer-events: none;
   background: rgba(85, 85, 85, 0.35);
@@ -176,48 +184,61 @@ body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
   border-radius: 14px;
   box-shadow: 0 8px 28px rgba(0,0,0,0.25);
   border: 1px solid rgba(255,255,255,0.2);
-  padding: 25px 20px;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: внутренние отступы */
+  padding: clamp(18px, 2.8vh, 26px) clamp(14px, 4vw, 26px);
 }
+
 .section.expanded .content { animation: fadeUpContent 0.9s ease forwards 0.8s; pointer-events: auto; }
 @keyframes fadeUpContent { from { opacity: 0; transform: translate(-50%, 30px); } to { opacity: 1; transform: translate(-50%, 0); } }
 @keyframes fadeOutContent { from { opacity: 1; } to { opacity: 0; } }
 
+/* текст внутри карточки */
 .section .content p {
-  font-size: clamp(15px, 4vw, 18px);
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: размер шрифта */
+  font-size: clamp(14px, 3.4vw, 18px);
   font-weight: 300;
   line-height: 1.5em;
   margin: 12px 0;
 }
+
 .section .content b { font-weight: 600; color: #000; }
+
+/* --- Кнопки внутри секции --- */
 .section .buttons {
-  margin-top: 18px;
+  margin-top: clamp(14px, 2.2vh, 20px);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: clamp(8px, 1.8vh, 12px);
   align-items: center;
 }
+
 .section .buttons a {
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   text-decoration: none;
-  padding: 10px 22px;
+  /* ИЗМЕНЕНО ДЛЯ АДАПТИВНОСТИ: паддинги и размер текста */
+  padding: clamp(8px, 1.6vh, 11px) clamp(18px, 4.5vw, 26px);
   border-radius: 6px;
   transition: background 0.3s ease;
   pointer-events: none;
   opacity: 0;
   font-weight: 400;
-  width: 220px;
+  /* ширина немного адаптивная */
+  width: min(260px, 80%);
+  font-size: clamp(14px, 3.2vw, 17px);
   text-align: center;
   display: inline-block;
   box-sizing: border-box;
 }
+
 .section.expanded .buttons a { pointer-events: auto; opacity: 1; }
 .section .buttons a:hover { background: rgba(0, 0, 0, 0.9); }
 
-/* --- Кнопка Назад --- */
+
+/* --- Кнопка Назад (оставляем, как в прошлой версии) --- */
 .back-btn {
   position: fixed;
-  bottom: 70px;
+  bottom: clamp(100px, 5vh, 150px);
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: #000;
@@ -274,7 +295,6 @@ body.fade-out { opacity: 0; transition: opacity 1.03s ease; }
         <a href="vip-status.htm">VIP</a>
         <a href="rozygrysh.html"> Конкурс</a>
         <a href="https://magic-jumpsuit-8db.notion.site/be8243bf2a074ea58c48aa1f6d09ed18?v=d146360508f345b2a9e77da87e1929be&pvs=74" target="_blank">Статус заказов</a>
-        <a href="donat2.html">Заказать Услугу</a>
       </div>
     </div>
     <button class="back-btn">Назад</button>
@@ -381,8 +401,3 @@ document.querySelectorAll('a[href]').forEach(link => {
 
 </body>
 </html>
-
-
-
-
-
